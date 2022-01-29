@@ -11,4 +11,4 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d/
     ports:
-      - 5055:5055
+      - 5055:5432
