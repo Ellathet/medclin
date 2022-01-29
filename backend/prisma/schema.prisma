@@ -9,3 +9,56 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                      String            @id           @default(uuid())
+  email                   String            @unique
+  name                    String
+  username                String            @unique
+  rg                      String            @unique
+  cpf                     String            @unique
+  birthday                DateTime
+  password                String
+  patientAppointments     Appointment[]     @relation("patientAppointments")
+  medicAppointments       Appointment[]     @relation("medicAppointments")
+  role                    Role              @relation(fields: [roleEnum], references: [id])
+  roleEnum                String
+  specialties             Specialization[]  @relation(fields: [specialtyId], references: [id])
+  specialtyId             String?
+}
+
+model Specialization {
+  id                      String            @id           @default(uuid())
+  specialization          String            @unique
+  appointments            Appointment[]
+  users                   User[]
+}
+
+model Role {
+  id                      String             @id           @default(uuid())
+  roleEnum                Int                @unique
+  role                    String             @unique
+  users                   User[]
+}
+
+model Status {  
+  id                      String             @id           @default(uuid())
+  status                  String
+  statusEnum              Int                @unique
+  appointments            Appointment[]
+}
+
+model Appointment {
+  id                      String             @id           @default(uuid())
+  medic                   User               @relation("medicAppointments", fields: [medicId], references: [id])
+  medicId                 String
+  patient                 User               @relation("patientAppointments", fields: [patientId], references: [id])
+  patientId               String
+  description             String?
+  specialization          Specialization     @relation(fields: [specializationId], references: [id])
+  specializationId        String
+  status                  Status             @relation(fields: [statusId], references: [id])
+  statusId                String
+  result                  String
+  date                    DateTime
+}
