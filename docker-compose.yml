@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14.1
+    container_name: medclin-db
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=medclin-db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    ports:
+      - 5055:5055
