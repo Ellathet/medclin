@@ -30,7 +30,11 @@
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
+    "argon2": "^0.28.4",
     "dotenv": "^14.3.2",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "moment": "^2.29.1",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.6.0"
   }
 }
