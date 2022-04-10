@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 
-type Modify<T, R> = Omit<T, keyof R> & R;
-
-type ICreateUserDTO = Modify<Omit<User, 'id'>, { birthday: string | Date }>;
+type ICreateUserDTO = Omit<User, 'id' | 'birthday'> & {
+  birthday: Date | string;
+};
 
 export default ICreateUserDTO;

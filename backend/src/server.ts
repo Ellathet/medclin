@@ -12,6 +12,11 @@ app.use(express.json());
 app.use(morgan('tiny'));
 app.use('/api', routes);
 
-app.listen(configs.port, () =>
-  console.log(`Server is running in port: ${configs.port}`)
-);
+try {
+  app.listen(configs.port, () =>
+    console.log(`Server is running in port: ${configs.port}`)
+  );
+} catch (err) {
+  console.error(err);
+  process.exit();
+}

@@ -6,17 +6,8 @@ export default class UpdateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
     const updateUserUseCase = container.resolve(UpdateUserUseCase);
 
-    const {
-      email,
-      name,
-      username,
-      rg,
-      cpf,
-      birthday,
-      password,
-      roleEnum,
-      specialtyId,
-    } = request.body;
+    const { email, name, username, rg, cpf, birthday, password, roleEnum } =
+      request.body;
     const { id } = request.params;
 
     const userUpdated = await updateUserUseCase.execute(id, {
@@ -28,7 +19,6 @@ export default class UpdateUserController {
       birthday,
       password,
       roleEnum,
-      specialtyId,
     });
 
     return response.status(200).json(userUpdated);
