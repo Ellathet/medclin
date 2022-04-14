@@ -12,6 +12,8 @@ datasource db {
 
 model User {
   id                      String            @id           @default(uuid())
+  type                    Type              @relation(fields: [typeEnum], references: [typeEnum])
+  typeEnum                Int               
   email                   String            @unique
   name                    String
   username                String            @unique
@@ -47,6 +49,13 @@ model Status {
   appointments            Appointment[]
 }
 
+model Type { 
+  id                      String              @id          @default(uuid())
+  type                    String
+  typeEnum                Int                 @unique
+  users                   User[]    
+}
+
 model Appointment {
   id                      String             @id           @default(uuid())
   medic                   User               @relation("medicAppointments", fields: [medicId], references: [id])
@@ -56,8 +65,8 @@ model Appointment {
   description             String?
   specialization          Specialization     @relation(fields: [specializationId], references: [id])
   specializationId        String
-  status                  Status             @relation(fields: [statusId], references: [id])
-  statusId                String
+  status                  Status             @relation(fields: [statusEnum], references: [statusEnum])
+  statusEnum              Int
   result                  String
   date                    DateTime
 }

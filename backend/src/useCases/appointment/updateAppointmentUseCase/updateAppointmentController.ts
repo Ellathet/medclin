@@ -15,7 +15,7 @@ export default class UpdateAppointmentController {
       description,
       patientId,
       specializationId,
-      statusId,
+      statusEnum,
       result,
       date,
     } = request.body;
@@ -25,7 +25,7 @@ export default class UpdateAppointmentController {
       description,
       patientId,
       specializationId,
-      statusId,
+      statusEnum,
       result,
       date,
     });

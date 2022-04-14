@@ -13,7 +13,7 @@ export default class CreateAppointmentController {
       description,
       patientId,
       specializationId,
-      statusId,
+      statusEnum,
       result,
       date,
     } = request.body;
@@ -23,7 +23,7 @@ export default class CreateAppointmentController {
       description,
       patientId,
       specializationId,
-      statusId,
+      statusEnum,
       result,
       date,
     });
