@@ -7,6 +7,7 @@ import SelectAppointmentsController from '@useCases/appointment/selectAppointmen
 import validator from '../middlewares/validator';
 import createAppointmentSchema from '../useCases/appointment/createAppointmentUseCase/createAppointmentSchema';
 import updateAppointmentSchema from '../useCases/appointment/updateAppointmentUseCase/updateAppointmentSchema';
+import authenticator from '../middlewares/authenticator';
 
 const routes = Router();
 
@@ -19,15 +20,17 @@ const deleteAppointmentController = new DeleteAppointmentController();
 routes.post(
   '/',
   validator(createAppointmentSchema),
+  authenticator,
   createAppointmentController.handle
 );
-routes.get('/', selectAppointmentsUseController.handle);
-routes.get('/:id', selectAppointmentUseController.handle);
+routes.get('/', selectAppointmentsUseController.handle, authenticator);
+routes.get('/:id', selectAppointmentUseController.handle, authenticator);
 routes.put(
   '/:id',
   validator(updateAppointmentSchema),
+  authenticator,
   updateAppointmentController.handle
 );
-routes.delete('/:id', deleteAppointmentController.handle);
+routes.delete('/:id', deleteAppointmentController.handle, authenticator);
 
 export default routes;

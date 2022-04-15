@@ -14,7 +14,6 @@ export default yup.object({
     password: yup.string().required().max(20).min(4),
     roleEnum: yup.number().positive().min(1).max(1),
     birthday: yup.string().required(),
-    typeEnum: yup.number().required(),
   }),
   params: yup.object({
     id: yup.string().uuid().required(),

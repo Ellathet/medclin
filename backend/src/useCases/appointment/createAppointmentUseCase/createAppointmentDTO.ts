@@ -1,6 +1,9 @@
 import { Appointment } from '@prisma/client';
 
-type ICreateAppointmentDTO = Omit<Appointment, 'id' | 'date'> & {
+type ICreateAppointmentDTO = Omit<
+  Appointment,
+  'id' | 'date' | 'createdAt' | 'updatedAt'
+> & {
   date: Date | string;
 };
 

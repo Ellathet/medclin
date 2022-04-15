@@ -11,9 +11,7 @@ datasource db {
 }
 
 model User {
-  id                      String            @id           @default(uuid())
-  type                    Type              @relation(fields: [typeEnum], references: [typeEnum])
-  typeEnum                Int               
+  id                      String            @id           @default(uuid())      
   email                   String            @unique
   name                    String
   username                String            @unique
@@ -26,6 +24,9 @@ model User {
   role                    Role              @relation(fields: [roleEnum], references: [roleEnum])
   roleEnum                Int
   specialties             Specialization[]  @relation( references: [id])
+  refreshToken            RefreshToken[]
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
 }
 
 model Specialization {
@@ -49,18 +50,11 @@ model Status {
   appointments            Appointment[]
 }
 
-model Type { 
-  id                      String              @id          @default(uuid())
-  type                    String
-  typeEnum                Int                 @unique
-  users                   User[]    
-}
-
 model Appointment {
   id                      String             @id           @default(uuid())
-  medic                   User               @relation("medicAppointments", fields: [medicId], references: [id])
+  medic                   User               @relation("medicAppointments", fields: [medicId], references: [id], onDelete: Cascade)
   medicId                 String
-  patient                 User               @relation("patientAppointments", fields: [patientId], references: [id])
+  patient                 User               @relation("patientAppointments", fields: [patientId], references: [id], onDelete: Cascade)
   patientId               String
   description             String?
   specialization          Specialization     @relation(fields: [specializationId], references: [id])
@@ -69,4 +63,16 @@ model Appointment {
   statusEnum              Int
   result                  String
   date                    DateTime
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
+}
+
+model RefreshToken {
+  id                      String             @id           @default(uuid())
+  hashedToken             String
+  userId                  String
+  user                    User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  revoked                 Boolean            @default(false)
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
 }

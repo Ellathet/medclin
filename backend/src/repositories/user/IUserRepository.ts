@@ -9,4 +9,5 @@ export default interface IUserRepository {
   getPaginated(parameters: ISelectUsersPaginatedDTO): Promise<User[]>;
   update(id: string, user: IUpdateUserDTO): Promise<User>;
   delete(id: string): Promise<void>;
+  getBy(params: Partial<User>): Promise<User | null>;
 }

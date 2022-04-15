@@ -1,16 +1,15 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import UpdateUserUseCase from './updateUserUseCase';
+import RegisterUserUseCase from './registerUserUseCase';
 
-export default class UpdateUserController {
+export default class RegisterUserUseController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const updateUserUseCase = container.resolve(UpdateUserUseCase);
+    const registerUserUseCase = container.resolve(RegisterUserUseCase);
 
     const { email, name, username, rg, cpf, birthday, password, roleEnum } =
       request.body;
-    const { id } = request.params;
 
-    const userUpdated = await updateUserUseCase.execute(id, {
+    const registerTokens = await registerUserUseCase.execute({
       email,
       name,
       username,
@@ -21,6 +20,6 @@ export default class UpdateUserController {
       roleEnum,
     });
 
-    return response.status(200).json(userUpdated);
+    return response.status(201).json(registerTokens);
   }
 }

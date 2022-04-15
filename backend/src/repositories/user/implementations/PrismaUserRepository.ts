@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 import ICreateUserDTO from '../../../useCases/user/createUserUseCase/createUserDTO';
 import IUserRepository from '../IUserRepository';
 import prisma from '../../../../prisma/client';
@@ -51,5 +51,23 @@ export default class PrismaUserRepository implements IUserRepository {
     await prisma.user.delete({
       where: { id },
     });
+  }
+
+  async getBy(params: Prisma.UserWhereUniqueInput): Promise<User | null> {
+    const where: Prisma.UserWhereUniqueInput[] = Object.entries(params).map(
+      (p) => ({
+        [p[0]]: p[1],
+      })
+    );
+
+    const user = await prisma.user.findFirst({
+      where: { OR: where },
+      include: {
+        role: true,
+        specialties: true,
+      },
+    });
+
+    return user;
   }
 }

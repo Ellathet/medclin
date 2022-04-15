@@ -10,6 +10,10 @@ import PrismaUserRepository from '@repositories/user/implementations/PrismaUserR
 import PrismaSpecializationRepository from '@repositories/specialization/implementations/PrismaSpecializationRepository';
 import PrismaStatusRepository from '@repositories/status/implementations/PrismaStatusRepository';
 import IStatusRepository from '@repositories/status/IStatusRepository';
+import IJwtRepository from '@services/jwt/IJwtService';
+import JWTImplementations from '@services/jwt/implementations/JWTImplementations';
+import IRefreshTokenRepository from '@repositories/refreshToken/IRefreshTokenRepository';
+import PrismaRefreshTokenImplementations from '@repositories/refreshToken/implementations/PrismaRefreshTokenImplementations';
 
 container.registerSingleton<IUserRepository>(
   'UserRepository',
@@ -29,6 +33,13 @@ container.registerSingleton<IAppointmentRepository>(
 container.registerSingleton<IStatusRepository>(
   'StatusRepository',
   PrismaStatusRepository
+);
+
+container.registerSingleton<IJwtRepository>('IJwtService', JWTImplementations);
+
+container.registerSingleton<IRefreshTokenRepository>(
+  'RefreshTokenRepository',
+  PrismaRefreshTokenImplementations
 );
 
 container.registerSingleton<IHashService>('HashService', Argon2Implementations);
