@@ -4,6 +4,7 @@ import validator from '../middlewares/validator';
 import CreateUserController from '../useCases/user/createUserUseCase/createUserController';
 import createUserSchema from '../useCases/user/createUserUseCase/createUserSchema';
 import DeleteUserController from '../useCases/user/deleteUserUseCase/deleteUserController';
+import GetProfileController from '../useCases/user/getProfileUseCase/getProfileController';
 import SelectUsersPaginatedController from '../useCases/user/selectUsersPaginatedUseCase/selectUsersPaginatedController';
 import SelectUserController from '../useCases/user/selectUserUseCase/selectUserController';
 import UpdateUserController from '../useCases/user/updateUserUseCase/updateUserController';
@@ -16,6 +17,7 @@ const selectUserUseController = new SelectUserController();
 const selectUsersPaginatedController = new SelectUsersPaginatedController();
 const updateUserController = new UpdateUserController();
 const deleteUserController = new DeleteUserController();
+const getProfileController = new GetProfileController();
 
 routes.post(
   '/',
@@ -23,6 +25,7 @@ routes.post(
   validator(createUserSchema),
   createUserController.handle
 );
+routes.get('/me', authenticator, getProfileController.handle);
 routes.get('/:id', authenticator, selectUserUseController.handle);
 routes.get('/', authenticator, selectUsersPaginatedController.handle);
 routes.put(

@@ -22,7 +22,7 @@ const authenticator = async (
       env().JWT_REFRESH_SECRET
     );
 
-    // request.payload = payload;
+    request.user = payload;
   } catch (error: any) {
     response.status(401);
 

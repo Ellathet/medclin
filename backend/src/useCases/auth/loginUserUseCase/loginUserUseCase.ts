@@ -1,3 +1,4 @@
+import { ReasonPhrases } from 'http-status-codes';
 import { inject, injectable } from 'tsyringe';
 import { v4 } from 'uuid';
 import IRefreshTokenRepository from '../../../repositories/refreshToken/IRefreshTokenRepository';
@@ -29,7 +30,7 @@ export default class LoginUserUseCase {
     );
 
     if (!existingUser || !validPassword) {
-      throw new Error('Invalid login credentials.');
+      throw new Error(ReasonPhrases.UNAUTHORIZED);
     }
 
     const jti = v4();

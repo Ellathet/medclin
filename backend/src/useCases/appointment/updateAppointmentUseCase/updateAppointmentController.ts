@@ -1,35 +1,44 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { container } from 'tsyringe';
 import UpdateAppointmentUseCase from './updateAppointmentUseCase';
 
 export default class UpdateAppointmentController {
-  async handle(request: Request, response: Response): Promise<Response> {
-    const updateAppointmentUseCase = container.resolve(
-      UpdateAppointmentUseCase
-    );
+  async handle(
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const updateAppointmentUseCase = container.resolve(
+        UpdateAppointmentUseCase
+      );
 
-    const { id } = request.params;
+      const { id } = request.params;
 
-    const {
-      medicId,
-      description,
-      patientId,
-      specializationId,
-      statusEnum,
-      result,
-      date,
-    } = request.body;
+      const {
+        medicId,
+        description,
+        patientId,
+        specializationId,
+        statusEnum,
+        result,
+        date,
+      } = request.body;
 
-    const appointmentUpdated = await updateAppointmentUseCase.execute(id, {
-      medicId,
-      description,
-      patientId,
-      specializationId,
-      statusEnum,
-      result,
-      date,
-    });
+      const appointmentUpdated = await updateAppointmentUseCase.execute(id, {
+        medicId,
+        description,
+        patientId,
+        specializationId,
+        statusEnum,
+        result,
+        date,
+      });
 
-    return response.status(200).json(appointmentUpdated);
+      return response.status(StatusCodes.OK).json(appointmentUpdated);
+    } catch (error) {
+      return next(error);
+    }
   }
 }

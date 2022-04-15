@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { container } from 'tsyringe';
 import SelectUserUseCase from './selectUserUseCase';
 
@@ -11,6 +12,6 @@ export default class SelectUserController {
 
     const user = await selectUserUseCase.execute({ id });
 
-    return response.status(200).json(user);
+    return response.status(StatusCodes.OK).json(user);
   }
 }

@@ -18,7 +18,7 @@ model User {
   rg                      String            @unique
   cpf                     String            @unique
   birthday                DateTime
-  password                String
+  password                String            
   patientAppointments     Appointment[]     @relation("patientAppointments")
   medicAppointments       Appointment[]     @relation("medicAppointments")
   role                    Role              @relation(fields: [roleEnum], references: [roleEnum])

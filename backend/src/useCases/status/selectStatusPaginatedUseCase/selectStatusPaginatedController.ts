@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import { container } from 'tsyringe';
 import SelectStatusPaginatedUseCase from './selectStatusPaginatedUseCase';
 
@@ -17,6 +18,6 @@ export default class SelectStatusPaginatedController {
       search,
     });
 
-    return response.status(200).json(status);
+    return response.status(StatusCodes.OK).json(status);
   }
 }

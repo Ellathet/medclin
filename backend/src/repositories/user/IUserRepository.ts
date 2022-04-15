@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
 import ICreateUserDTO from '../../useCases/user/createUserUseCase/createUserDTO';
 import ISelectUsersPaginatedDTO from '../../useCases/user/selectUsersPaginatedUseCase/selectUsersPaginatedDTO';
 import IUpdateUserDTO from '../../useCases/user/updateUserUseCase/updateUserDTO';

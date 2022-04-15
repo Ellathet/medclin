@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use('/api', routes);
-app.use(genericErrorHandler());
+app.use(genericErrorHandler);
 
 try {
   app.listen(configs.port, () =>

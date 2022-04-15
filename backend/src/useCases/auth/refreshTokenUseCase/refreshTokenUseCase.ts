@@ -1,3 +1,4 @@
+import { ReasonPhrases } from 'http-status-codes';
 import { inject, injectable } from 'tsyringe';
 import { v4 } from 'uuid';
 import IRefreshTokenRepository from '../../../repositories/refreshToken/IRefreshTokenRepository';
@@ -33,19 +34,19 @@ export default class RefreshTokenUseCase {
     );
 
     if (!savedRefreshToken || savedRefreshToken.revoked) {
-      throw new Error('Unauthorized');
+      throw new Error(ReasonPhrases.UNAUTHORIZED);
     }
 
     const hashedToken = await this.hashService.encrypt(refreshToken);
 
     if (hashedToken !== savedRefreshToken.hashedToken) {
-      throw new Error('Unauthorized');
+      throw new Error(ReasonPhrases.UNAUTHORIZED);
     }
 
     const user = await this.userRepository.getById(payload.userId);
 
     if (!user) {
-      throw new Error('Unauthorized');
+      throw new Error(ReasonPhrases.UNAUTHORIZED);
     }
 
     await this.refreshTokenRepository.delete(savedRefreshToken.id);
